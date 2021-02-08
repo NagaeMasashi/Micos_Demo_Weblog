@@ -1,34 +1,28 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        microcms-nuxt-jamstack-blog
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <ul>
+    <li v-for="content in contents" :key="content.id">
+      <nuxt-link :to="`/${content.id}`">
+        {{ content.title }}
+      </nuxt-link>
+    </li>
+  </ul>
 </template>
 
 <script>
-export default {}
+import axios from 'axios'
+export default {
+  async asyncData() {
+    const { data } = await axios.get(
+      // your-service-id部分は自分のサービスidに置き換えてください
+      'https://balsamicos.microcms.io/api/v1/weblog',
+      {
+        // your-api-key部分は自分のapi-keyに置き換えてください
+        headers: { 'X-API-KEY': '0e9f60c7-d465-4e0a-b99c-9b89ffb98501' }
+      }
+    )
+    return data
+  }
+}
 </script>
 
 <style>

@@ -1,4 +1,22 @@
+import axios from 'axios'
+
 export default {
+  generate: {
+    async routes() {
+      const pages = await axios
+        .get('https://balsamicos.microcms.io/api/v1/weblog?limit=100', {
+          headers: { 'X-API-KEY': '0e9f60c7-d465-4e0a-b99c-9b89ffb98501' }
+        })
+        .then((res) =>
+          res.data.contents.map((content) => ({
+            route: `/${content.id}`,
+            payload: content
+          }))
+        )
+      return pages
+    }
+  },
+
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
