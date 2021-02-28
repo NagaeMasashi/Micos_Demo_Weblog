@@ -35,10 +35,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'microcms-nuxt-jamstack-blog',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    title: 'micos weblog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
