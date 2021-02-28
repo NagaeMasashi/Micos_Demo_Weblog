@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Header />
   <ul>
     <li v-for="content in contents" :key="content.id">
       <nuxt-link :to="`/${content.id}`">
@@ -6,9 +8,13 @@
       </nuxt-link>
     </li>
   </ul>
+  <Footer />
+</div>
 </template>
 
 <script>
+import Header from "@/components/header.vue";
+import Footer from "@/components/footer.vue"; 
 import axios from 'axios'
 export default {
   async asyncData() {
