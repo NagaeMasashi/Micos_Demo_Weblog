@@ -1,10 +1,24 @@
 <template>
   <div>
-    <Nuxt />
+    <Header />
+		<main>
+			<Nuxt />
+		</main>
+    <Footer />
   </div>
 </template>
 
-<style>
+<script>
+import Header from "@/components/header.vue";
+import Footer from "@/components/footer.vue"; 
+export default {
+		components: {
+			Header,
+			Footer
+		}
+	};
+</script>
+<style lang="scss" scoped>
 html {
   font-family:
     'Source Sans Pro',
@@ -23,40 +37,19 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
+main {
+  min-height: 600px;
+  background-color: #ddd;
+  text-align: center;
+  padding: 30px;
 }
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+.page-enter-active,
+.page-leave-active {
+  transition: 0.5s cubic-bezier(1, 0.25, 0.25, 1);
 }
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+  transform: translate(0, 30px);
 }
 </style>

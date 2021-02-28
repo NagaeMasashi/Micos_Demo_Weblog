@@ -1,20 +1,20 @@
 <template>
-<div>
-  <Header />
-  <ul>
-    <li v-for="content in contents" :key="content.id">
-      <nuxt-link :to="`/${content.id}`">
-        {{ content.title }}
+  <section class="latest-posts">
+    <div class="posts">
+      <nuxt-link :to="`/${content.id}`" class="post" v-for="content in contents" :key="content.id">
+        <div class="thumb">
+          <img :src="content.image.url">
+        </div>
+        <div class="post-text">
+          <p>{{ formatDate(content.date) }}</p>
+          <h2>{{ content.title }}</h2>
+        </div>
       </nuxt-link>
-    </li>
-  </ul>
-  <Footer />
-</div>
+    </div>
+  </section>
 </template>
 
 <script>
-import Header from "@/components/header.vue";
-import Footer from "@/components/footer.vue"; 
 import axios from 'axios'
 export default {
   async asyncData() {
@@ -27,47 +27,60 @@ export default {
       }
     )
     return data
+  },
+  methods: {
+    formatDate(iso) {
+      const date = new Date(iso)
+      const yyyy = new String(date.getFullYear())
+      const mm = new String(date.getMonth() + 1).padStart(2, "0")
+      const dd = new String(date.getDate()).padStart(2, "0")
+      return `${yyyy}.${mm}.${dd}`
+    }
   }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+<style lang="scss">
+section.latest-posts {
+  padding: 10px;
+  .posts {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: #ddd;
+    a.post {
+      width: calc(100% / 2 - 20px);
+      @media (min-width: (768px)) {
+        width: calc(100% / 3 - 20px);
+      }
+      margin: 10px;
+      background: #fff;
+      text-decoration: none;
+      color: #111;
+      .thumb {
+        width: 100%;
+        padding-bottom: 75%;
+        position: relative;
+        overflow: hidden;
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          max-width: 100%;
+        }
+      }
+      .post-text {
+        padding: 5px 10px 10px;
+        h2 {
+          width: fit-content;
+          font-size: 20px;
+        }
+      }
+    }
+  }
 }
 </style>

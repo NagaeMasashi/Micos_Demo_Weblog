@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <h1 class="title">{{ title }}</h1>
-    <p class="publishedAt">{{ date }}</p>
+    <p class="publishedAt">{{ formatDate(date) }}</p>
     <div class="post" v-html="body"></div>
   </main>
 </template>
@@ -18,6 +18,15 @@ export default {
       }
     )
     return data
+  },
+  methods: {
+    formatDate(iso) {
+      const date = new Date(iso)
+      const yyyy = new String(date.getFullYear())
+      const mm = new String(date.getMonth() + 1).padStart(2, "0")
+      const dd = new String(date.getDate()).padStart(2, "0")
+      return `${yyyy}.${mm}.${dd}`
+    }
   }
 }
 </script>
