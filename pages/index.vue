@@ -17,14 +17,12 @@
 <script>
 import axios from 'axios'
 export default {
-  async asyncData() {
+  async asyncData({ params }) {
+    const page = params.p || '1'
+    const limit = 10
     const { data } = await axios.get(
-      // your-service-id部分は自分のサービスidに置き換えてください
-      'https://balsamicos.microcms.io/api/v1/weblog',
-      {
-        // your-api-key部分は自分のapi-keyに置き換えてください
-        headers: { 'X-API-KEY': '0e9f60c7-d465-4e0a-b99c-9b89ffb98501' }
-      }
+      `https://balsamicos.microcms.io/api/v1/weblog?limit=${limit}&offset=${(page - 1) * limit}`,
+      { headers: { 'X-API-KEY': '0e9f60c7-d465-4e0a-b99c-9b89ffb98501' } }
     )
     return data
   },
